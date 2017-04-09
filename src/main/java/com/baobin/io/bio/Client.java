@@ -32,12 +32,9 @@ public class Client {
                     while (true) {
                         String result = null;
                         try {
-                            Thread.sleep(1000);
                             result = reader.readLine();
                         } catch (IOException e) {
                             e.printStackTrace();
-                        } catch (InterruptedException e){
-
                         }
                         System.out.println(result);
                     }
