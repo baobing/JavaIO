@@ -118,7 +118,7 @@ public class MultiplexerTimeServer implements Runnable {
             readBuffer.get(bytes);
             System.out.println("client send msg:\n" + new String(bytes, "UTF-8"));
 
-            String rep = "" + System.currentTimeMillis();
+            String rep = "" + System.currentTimeMillis() + System.getProperty("line.separator");
             doWrite(clientChannel, rep);
         } else if (size < 0) {
             System.out.println("read size < 0");
