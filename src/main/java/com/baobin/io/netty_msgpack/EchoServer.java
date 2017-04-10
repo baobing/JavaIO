@@ -8,6 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 
 /**
  * Created by hubaobin on 17/4/8.
@@ -34,6 +36,8 @@ public class EchoServer {
     private class ChildChannelHandler extends ChannelInitializer<SocketChannel>{
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
+            socketChannel.pipeline().addLast(new LengthFieldBasedFrameDecoder(65535,0,2,0,2));
+            socketChannel.pipeline().addLast(new LengthFieldPrepender(2));
             socketChannel.pipeline().addLast(new EchoServerHandler());
         }
     }

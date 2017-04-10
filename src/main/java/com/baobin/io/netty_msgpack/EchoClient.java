@@ -8,12 +8,14 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 
 /**
  * Created by hubaobin on 17/4/9.
  */
 public class EchoClient {
-    public void connet(int port, String host) {
+    public void connect(int port, String host) {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
@@ -23,10 +25,11 @@ public class EchoClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel channel) {
-                            //channel.pipeline().addLast(new LineBasedFrameDecoder(1024)); //半包问题使用
+                            channel.pipeline().addLast(new LengthFieldBasedFrameDecoder(65535, 0, 2, 0, 2));
+                            channel.pipeline().addLast(new LengthFieldPrepender(2));
                             channel.pipeline().addLast(new MsgpackDecoder());  //直接返回String对象 而不是ByteBuf
                             channel.pipeline().addLast(new MsgpackEncoder());  //直接返回String对象 而不是ByteBuf
-                            channel.pipeline().addLast(new EchoClientHandler());
+                            channel.pipeline().addLast(new EchoClientHandler(1000));
                         }
                     });
             ChannelFuture future = bootstrap.connect(host, port).sync();
@@ -39,6 +42,6 @@ public class EchoClient {
     }
 
     public static void main(String[] args) {
-        new EchoClient().connet(8081, "127.0.0.1");
+        new EchoClient().connect(8081, "127.0.0.1");
     }
 }
