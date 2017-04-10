@@ -1,4 +1,4 @@
-package com.baobin.io.netty1;
+package com.baobin.io.netty_sample;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

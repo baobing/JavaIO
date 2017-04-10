@@ -12,12 +12,8 @@ import org.msgpack.MessagePack;
 public class MsgpackEncoder extends MessageToByteEncoder<Object> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf byteBuf) throws Exception {
-        System.out.println("encoder");
         MessagePack messagePack = new MessagePack();
-        System.out.println(JSON.toJSON(o));
         byte[] array = messagePack.write(o);
-        System.out.println(JSON.toJSON(array));
         byteBuf.writeBytes(array);
-
     }
 }

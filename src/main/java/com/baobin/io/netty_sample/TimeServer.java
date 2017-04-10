@@ -1,4 +1,4 @@
-package com.baobin.io.netty1;
+package com.baobin.io.netty_sample;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

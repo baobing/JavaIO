@@ -30,4 +30,11 @@ public class UserInfo implements Serializable{
         this.username = username;
     }
 
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

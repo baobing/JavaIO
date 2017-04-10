@@ -18,15 +18,7 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
- /*       ByteBuf buf = (ByteBuf) msg;
-        byte[] req = new byte[buf.readableBytes()];
-        buf.readBytes(req);
-        String reqStr = msg.toString();
-        System.out.println("the time server receive order : " + reqStr);
-
-        ByteBuf resp = Unpooled.copiedBuffer(((counter++) + " " + System.currentTimeMillis() +
-                "" + System.getProperty("line.separator")).getBytes());
-        ctx.write(resp);*/
+        System.out.println("the object i receive:" + msg.toString());
         ctx.write(msg);
     }
 
